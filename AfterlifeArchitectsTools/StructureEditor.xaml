@@ -23,7 +23,8 @@
                         <Label DockPanel.Dock="Left" Content="Structure Values Editor"/>
                         <Separator Margin="5"/>
                     </DockPanel>
-                    
+                    <Separator Background="Transparent"/>
+
                     <!-- Load and Save Button -->
                     <DockPanel Grid.Column="0" Grid.ColumnSpan="2">
                         <Grid>
@@ -39,12 +40,21 @@
                     
                     <!-- Structure Type Drop-down -->
                     <DockPanel>
-                        <Separator Width="15" Background="Transparent" DockPanel.Dock="Left"/>
                         <Label Content="Structure Type: "/>
-                        <ComboBox x:Name="structureType_ComboBox" VerticalAlignment="Center" SelectionChanged="structureType_SelectionChanged"/>
+                        <ComboBox x:Name="structureType_ComboBox" VerticalAlignment="Center" SelectionChanged="structureType_SelectionChanged" Width="175"/>
                     </DockPanel>
                     
+                    <!-- Cost -->
+                    <DockPanel>
+                        <Label DockPanel.Dock="Left" Content="Cost: "/>
+                        <TextBox x:Name="cost" TextChanged="cost_TextChanged" PreviewTextInput="cost_PreviewTextInput" VerticalAlignment="Center" HorizontalAlignment="Right" Width="175" Margin="0, 5, 0, 5"/>
+                    </DockPanel>
                     
+                    <!-- Tile Size -->
+                    <DockPanel>
+                        <Label DockPanel.Dock="Left" Content="Tile Size: "/>
+                        <TextBox x:Name="size" TextChanged="size_TextChanged" PreviewTextInput="size_PreviewTextInput" VerticalAlignment="Center" HorizontalAlignment="Right" Width="175" Margin="0, 5, 0, 5"/>
+                    </DockPanel>
                 </StackPanel>
             </Border>
         </Grid>
