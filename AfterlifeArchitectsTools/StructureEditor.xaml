@@ -57,6 +57,13 @@
                     </DockPanel>
                 </StackPanel>
             </Border>
+
+            <!-- Right Panel -->
+            <Border Grid.Column="1" Margin="10" Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
+                <Grid>
+                    <Image x:Name="texturePreview"/>
+                </Grid>
+            </Border>
         </Grid>
     </DockPanel>
 </Page>
