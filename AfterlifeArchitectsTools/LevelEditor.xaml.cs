@@ -16,23 +16,13 @@ using System.Windows.Shapes;
 namespace AfterlifeArchitectsTools
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LevelEditor.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LevelEditor : Page
     {
-        public MainWindow()
+        public LevelEditor()
         {
             InitializeComponent();
-        }
-
-        private void structureEditor_Click(object sender, RoutedEventArgs e)
-        {
-            mainFrame.Navigate(new Uri("StructureEditor.xaml", UriKind.Relative));
-        }
-
-        private void levelEditor_Click(Object sender, RoutedEventArgs e)
-        {
-            mainFrame.Navigate(new Uri("LevelEditor.xaml", UriKind.Relative));
         }
     }
 }

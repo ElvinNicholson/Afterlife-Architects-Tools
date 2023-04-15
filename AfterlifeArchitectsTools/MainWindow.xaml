@@ -6,7 +6,14 @@
         xmlns:local="clr-namespace:AfterlifeArchitectsTools"
         mc:Ignorable="d"
         Title="Afterlife Architects Tools" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_Tools">
+                <MenuItem Header="_Structure Editor" Click="structureEditor_Click"/>
+                <MenuItem Header="_Level Editor" Click="levelEditor_Click"/>
+            </MenuItem>
+        </Menu>
+        
+        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden"/>
+    </DockPanel>
 </Window>
