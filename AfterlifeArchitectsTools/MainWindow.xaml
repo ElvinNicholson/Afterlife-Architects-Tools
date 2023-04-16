@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AfterlifeArchitectsTools"
         mc:Ignorable="d"
-        Title="Afterlife Architects Tools" Height="450" Width="800">
+        Title="Afterlife Architects Tools" Height="500" Width="830">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_Tools">

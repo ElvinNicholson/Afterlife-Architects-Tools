@@ -19,22 +19,22 @@
             <Border Grid.Column="0" Margin="10" Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
                 <StackPanel Margin="5">
                     <!-- Structure Values Editor Label -->
-                    <DockPanel Grid.Column="0" Grid.ColumnSpan="2">
+                    <DockPanel>
                         <Label DockPanel.Dock="Left" Content="Structure Values Editor"/>
                         <Separator Margin="5"/>
                     </DockPanel>
                     <Separator Background="Transparent"/>
 
                     <!-- Load and Save Button -->
-                    <DockPanel Grid.Column="0" Grid.ColumnSpan="2">
+                    <DockPanel>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Button Click="structureLoad_Click" VerticalAlignment="Center" Grid.Column="0" Margin="5" Content="Load"/>
-                            <Button Click="structureSave_Click" VerticalAlignment="Center" Grid.Column="1" Margin="5" Content="Save"/>
+                            <Button Click="structureLoad_Click" VerticalAlignment="Center" Grid.Column="0" Margin="0, 5, 5, 5" Content="Load"/>
+                            <Button Click="structureSave_Click" VerticalAlignment="Center" Grid.Column="1" Margin="5, 5, 0, 5" Content="Save"/>
                         </Grid>
                     </DockPanel>
                     
@@ -60,9 +60,58 @@
 
             <!-- Right Panel -->
             <Border Grid.Column="1" Margin="10" Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
-                <Grid>
-                    <Image x:Name="texturePreview"/>
-                </Grid>
+                <StackPanel Margin="5">
+                    
+                    <!-- Texture Preview Label -->
+                    <DockPanel>
+                        <Label DockPanel.Dock="Left" Content="Texture Preview"/>
+                        <Separator Margin="5"/>
+                    </DockPanel>
+
+                    <!-- Heaven Texture -->
+                    <DockPanel>
+                        <Separator Width="15" Background="Transparent"/>
+                        <Label DockPanel.Dock="Left" Content="Heaven Texture: "/>
+                        <Button Click="textureHeavenLoad_Click" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" Content="Load" Width="40" Margin="5"/>
+                        <Border BorderThickness="1" BorderBrush="Silver" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" Width="300">
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                <TextBlock x:Name="textureHeaven_TextBlock" Background="White"/>
+                            </ScrollViewer>
+                        </Border>
+                    </DockPanel>
+
+                    <!-- Hell Texture -->
+                    <DockPanel>
+                        <Separator Width="15" Background="Transparent"/>
+                        <Label DockPanel.Dock="Left" Content="Hell Texture: "/>
+                        <Button Click="textureHellLoad_Click" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" Content="Load" Width="40" Margin="5"/>
+                        <Border BorderThickness="1" BorderBrush="Silver" VerticalAlignment="Center" HorizontalAlignment="Right" DockPanel.Dock="Right" Width="300">
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                <TextBlock x:Name="textureHell_TextBlock" Background="White"/>
+                            </ScrollViewer>
+                        </Border>
+                    </DockPanel>
+
+                    <!-- Texture Preview Image -->
+                    <DockPanel Height="300">
+                        <Border BorderThickness="1" BorderBrush="Silver" Width="280" Height="280" Background="White">
+                            <Image x:Name="texturePreview"/>
+                        </Border>
+                    </DockPanel>
+                    
+                    <!-- Hell / Heaven Textures Button -->
+                    <DockPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Click="previewHeaven_Click" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Width="135" Margin="5" Content="Heaven"/>
+                            <Button Click="previewHell_Click" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="1" Width="135" Margin="5" Content="Hell"/>
+                        </Grid>
+                    </DockPanel>
+                </StackPanel>
             </Border>
         </Grid>
     </DockPanel>

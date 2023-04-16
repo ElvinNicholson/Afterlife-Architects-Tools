@@ -33,19 +33,7 @@ namespace AfterlifeArchitectsTools
             structureType_ComboBox.ItemsSource = structureTypes;
             structureType_ComboBox.SelectedValue = StructureType.Building_Green_T1;
 
-            using (MagickImage image = new MagickImage("C:\\Users\\nicho\\Documents\\Scarle\\Afterlife-Architects-Tools\\AfterlifeArchitectsTools\\Building_Blue_Heaven_1x1.dds"))
-            {
-                byte[] imageData = image.ToByteArray(MagickFormat.Bmp);
-                using (MemoryStream stream = new MemoryStream(imageData))
-                {
-                    var bitmapSource = System.Windows.Media.Imaging.BitmapFrame.Create(stream,
-                        System.Windows.Media.Imaging.BitmapCreateOptions.None,
-                        System.Windows.Media.Imaging.BitmapCacheOption.OnLoad);
-
-                    texturePreview.Source = bitmapSource;
-                }
-            }
-
+            loadImage("C:\\Users\\nicho\\Documents\\Scarle\\Afterlife-Architects-Tools\\AfterlifeArchitectsTools\\Building_Blue_Heaven_1x1.dds");
         }
 
         /// <summary>
@@ -128,6 +116,71 @@ namespace AfterlifeArchitectsTools
         private void size_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = regexNumber(e.Text);
+        }
+
+        /// <summary>
+        /// Loads DDS texture to texturePreview
+        /// </summary>
+        /// <param name="path">Path of the DDS image</param>
+        private void loadImage(string path)
+        {
+            using (MagickImage image = new MagickImage(path))
+            {
+                byte[] imageData = image.ToByteArray(MagickFormat.Bmp);
+
+                using (var stream = new MemoryStream(imageData))
+                {
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.StreamSource = stream;
+                    bitmapImage.EndInit();
+
+                    texturePreview.Source = bitmapImage;
+                    texturePreview.Width = 250;
+                    texturePreview.Height = 250;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Opens a file dialogue to change the heaven texture
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textureHeavenLoad_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Opens a file dialogue to change the hell texture
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textureHellLoad_Click(Object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Changes the texturePreview to heaven texture
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void previewHeaven_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// Changes the texturePreview to Hell texture
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void previewHell_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
