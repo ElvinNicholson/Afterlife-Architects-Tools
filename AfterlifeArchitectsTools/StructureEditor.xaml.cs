@@ -16,6 +16,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ImageMagick;
+using Microsoft.Win32;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace AfterlifeArchitectsTools
 {
@@ -26,14 +29,18 @@ namespace AfterlifeArchitectsTools
     {
         StructureType[] structureTypes = (StructureType[])Enum.GetValues(typeof(StructureType));
 
+        private JObject structureValue;
+        private string filename;
+        private string directory;
+
+        private string textureHeaven;
+        private string textureHell;
+
         public StructureEditor()
         {
             InitializeComponent();
 
             structureType_ComboBox.ItemsSource = structureTypes;
-            structureType_ComboBox.SelectedValue = StructureType.Building_Green_T1;
-
-            loadImage("C:\\Users\\nicho\\Documents\\Scarle\\Afterlife-Architects-Tools\\AfterlifeArchitectsTools\\Building_Blue_Heaven_1x1.dds");
         }
 
         /// <summary>
@@ -54,7 +61,41 @@ namespace AfterlifeArchitectsTools
         /// <param name="e"></param>
         private void structureLoad_Click(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
 
+            openFileDialog.Filter = "JSON files (*.json)|*.json";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                filename = openFileDialog.FileName;
+
+                // Get root folder of game
+                directory = System.IO.Path.GetDirectoryName(filename);
+                directory = System.IO.Path.GetDirectoryName(directory);
+                directory = System.IO.Path.GetDirectoryName(directory);
+
+                loadStructureValue(filename);
+            }
+        }
+
+        private void loadStructureValue(string path)
+        {
+            structureValue = JObject.Parse(File.ReadAllText(path));
+        }
+
+        private void displayStructure(StructureType type)
+        {
+            cost.Text = (string)structureValue["structureValues"][(int)type]["cost"];
+            size.Text = (string)structureValue["structureValues"][(int)type]["tileSize"];
+
+            textureHeaven_TextBlock.Text = (string)structureValue["structureValues"][(int)type]["textureHeaven"] + ".dds";
+            textureHell_TextBlock.Text = (string)structureValue["structureValues"][(int)type]["textureHell"] + ".dds";
+
+            string imagePath = System.IO.Path.Combine(directory, "Assets");
+
+            textureHeaven = System.IO.Path.Combine(imagePath, textureHeaven_TextBlock.Text);
+            textureHell = System.IO.Path.Combine(imagePath, textureHell_TextBlock.Text);
+
+            loadImage(textureHeaven);
         }
 
         /// <summary>
@@ -75,7 +116,7 @@ namespace AfterlifeArchitectsTools
         private void structureType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             StructureType selectedType = (StructureType)(structureType_ComboBox.SelectedItem);
-            //MessageBox.Show(selectedType.ToString());
+            displayStructure(selectedType);
         }
 
         /// <summary>
@@ -150,7 +191,16 @@ namespace AfterlifeArchitectsTools
         /// <param name="e"></param>
         private void textureHeavenLoad_Click(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "DDS image (*.dds)|*.dds";
 
+            openFileDialog.InitialDirectory = System.IO.Path.Combine(directory, "Assets");
+            if (openFileDialog.ShowDialog() == true)
+            {
+                textureHeaven = openFileDialog.FileName;
+                textureHeaven_TextBlock.Text = openFileDialog.SafeFileName;
+                loadImage(textureHeaven);
+            }
         }
 
         /// <summary>
@@ -160,7 +210,16 @@ namespace AfterlifeArchitectsTools
         /// <param name="e"></param>
         private void textureHellLoad_Click(Object sender, RoutedEventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "DDS image (*.dds)|*.dds";
 
+            openFileDialog.InitialDirectory = System.IO.Path.Combine(directory, "Assets");
+            if (openFileDialog.ShowDialog() == true)
+            {
+                textureHell = openFileDialog.FileName;
+                textureHell_TextBlock.Text = openFileDialog.SafeFileName;
+                loadImage(textureHell);
+            }
         }
 
         /// <summary>
@@ -170,7 +229,7 @@ namespace AfterlifeArchitectsTools
         /// <param name="e"></param>
         private void previewHeaven_Click(object sender, RoutedEventArgs e)
         {
-
+            loadImage(textureHeaven);
         }
 
         /// <summary>
@@ -180,7 +239,7 @@ namespace AfterlifeArchitectsTools
         /// <param name="e"></param>
         private void previewHell_Click(object sender, RoutedEventArgs e)
         {
-
+            loadImage(textureHell);
         }
     }
 }
