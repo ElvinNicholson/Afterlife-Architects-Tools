@@ -34,5 +34,10 @@ namespace AfterlifeArchitectsTools
         {
             mainFrame.Navigate(new Uri("LevelEditor.xaml", UriKind.Relative));
         }
+
+        private void advisorEditor_Click(Object sender, RoutedEventArgs e)
+        {
+            mainFrame.Navigate(new Uri("AdvisorEditor.xaml", UriKind.Relative));
+        }
     }
 }
