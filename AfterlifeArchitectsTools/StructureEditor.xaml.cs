@@ -33,6 +33,7 @@ namespace AfterlifeArchitectsTools
         private string filename;
         private string directory;
 
+        private StructureType selectedType;
         private string textureHeaven;
         private string textureHell;
 
@@ -82,6 +83,10 @@ namespace AfterlifeArchitectsTools
             structureValue = JObject.Parse(File.ReadAllText(path));
         }
 
+        /// <summary>
+        /// Changes the displayed data according to the structureType comboBox
+        /// </summary>
+        /// <param name="type">StructureType to be shown</param>
         private void displayStructure(StructureType type)
         {
             cost.Text = (string)structureValue["structureValues"][(int)type]["cost"];
@@ -105,7 +110,13 @@ namespace AfterlifeArchitectsTools
         /// <param name="e"></param>
         private void structureSave_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(filename))
+            {
+                MessageBox.Show("There is no loaded StructureValues.json");
+                return;
+            }
 
+            File.WriteAllText(filename, structureValue.ToString(Formatting.Indented));
         }
 
         /// <summary>
@@ -115,7 +126,14 @@ namespace AfterlifeArchitectsTools
         /// <param name="e"></param>
         private void structureType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            StructureType selectedType = (StructureType)(structureType_ComboBox.SelectedItem);
+            selectedType = (StructureType)(structureType_ComboBox.SelectedItem);
+
+            if (string.IsNullOrEmpty(filename))
+            {
+                MessageBox.Show("There is no loaded StructureValues.json");
+                return;
+            }
+
             displayStructure(selectedType);
         }
 
@@ -126,7 +144,13 @@ namespace AfterlifeArchitectsTools
         /// <param name="e"></param>
         private void cost_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (string.IsNullOrEmpty(filename))
+            {
+                MessageBox.Show("There is no loaded StructureValues.json");
+                return;
+            }
 
+            structureValue["structureValues"][(int)selectedType]["cost"] = int.Parse(cost.Text);
         }
 
         /// <summary>
@@ -146,7 +170,13 @@ namespace AfterlifeArchitectsTools
         /// <param name="e"></param>
         private void size_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (string.IsNullOrEmpty(filename))
+            {
+                MessageBox.Show("There is no loaded StructureValues.json");
+                return;
+            }
 
+            structureValue["structureValues"][(int)selectedType]["tileSize"] = int.Parse(size.Text);
         }
 
         /// <summary>
@@ -178,8 +208,7 @@ namespace AfterlifeArchitectsTools
                     bitmapImage.EndInit();
 
                     texturePreview.Source = bitmapImage;
-                    texturePreview.Width = 250;
-                    texturePreview.Height = 250;
+                    RenderOptions.SetBitmapScalingMode(texturePreview, BitmapScalingMode.NearestNeighbor);
                 }
             }
         }
@@ -191,6 +220,12 @@ namespace AfterlifeArchitectsTools
         /// <param name="e"></param>
         private void textureHeavenLoad_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(filename))
+            {
+                MessageBox.Show("There is no loaded StructureValues.json");
+                return;
+            }
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "DDS image (*.dds)|*.dds";
 
@@ -199,6 +234,11 @@ namespace AfterlifeArchitectsTools
             {
                 textureHeaven = openFileDialog.FileName;
                 textureHeaven_TextBlock.Text = openFileDialog.SafeFileName;
+
+                string filename = openFileDialog.SafeFileName;
+                filename = filename.Substring(0, filename.Length - 4);
+                structureValue["structureValues"][(int)selectedType]["textureHeaven"] = filename;
+
                 loadImage(textureHeaven);
             }
         }
@@ -210,6 +250,12 @@ namespace AfterlifeArchitectsTools
         /// <param name="e"></param>
         private void textureHellLoad_Click(Object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(filename))
+            {
+                MessageBox.Show("There is no loaded StructureValues.json");
+                return;
+            }
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "DDS image (*.dds)|*.dds";
 
@@ -218,6 +264,11 @@ namespace AfterlifeArchitectsTools
             {
                 textureHell = openFileDialog.FileName;
                 textureHell_TextBlock.Text = openFileDialog.SafeFileName;
+
+                string filename = openFileDialog.SafeFileName;
+                filename = filename.Substring(0, filename.Length - 4);
+                structureValue["structureValues"][(int)selectedType]["textureHell"] = filename;
+
                 loadImage(textureHell);
             }
         }
@@ -229,6 +280,12 @@ namespace AfterlifeArchitectsTools
         /// <param name="e"></param>
         private void previewHeaven_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(filename))
+            {
+                MessageBox.Show("There is no loaded StructureValues.json");
+                return;
+            }
+
             loadImage(textureHeaven);
         }
 
@@ -239,6 +296,12 @@ namespace AfterlifeArchitectsTools
         /// <param name="e"></param>
         private void previewHell_Click(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(filename))
+            {
+                MessageBox.Show("There is no loaded StructureValues.json");
+                return;
+            }
+
             loadImage(textureHell);
         }
     }

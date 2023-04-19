@@ -51,8 +51,6 @@ namespace AfterlifeArchitectsTools
 
         TrainingCenter_T1,
         TrainingCenter_T2,
-        TrainingCenter_T3,
-
-        unknown
+        TrainingCenter_T3
     }
 }
