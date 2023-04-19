@@ -41,19 +41,43 @@
                     <!-- Structure Type Drop-down -->
                     <DockPanel>
                         <Label Content="Structure Type: "/>
-                        <ComboBox x:Name="structureType_ComboBox" VerticalAlignment="Center" SelectionChanged="structureType_SelectionChanged" Width="175"/>
+                        <ComboBox x:Name="structureType_ComboBox" VerticalAlignment="Center" HorizontalAlignment="Right" SelectionChanged="structureType_SelectionChanged" Width="150"/>
                     </DockPanel>
                     
                     <!-- Cost -->
                     <DockPanel>
                         <Label DockPanel.Dock="Left" Content="Cost: "/>
-                        <TextBox x:Name="cost" TextChanged="cost_TextChanged" PreviewTextInput="cost_PreviewTextInput" VerticalAlignment="Center" HorizontalAlignment="Right" Width="175" Margin="0, 5, 0, 5"/>
+                        <TextBox x:Name="cost" TextChanged="cost_TextChanged" PreviewTextInput="regex_number" VerticalAlignment="Center" HorizontalAlignment="Right" Width="150" Margin="0, 5, 0, 5"/>
                     </DockPanel>
                     
                     <!-- Tile Size -->
                     <DockPanel>
                         <Label DockPanel.Dock="Left" Content="Tile Size: "/>
-                        <TextBox x:Name="size" TextChanged="size_TextChanged" PreviewTextInput="size_PreviewTextInput" VerticalAlignment="Center" HorizontalAlignment="Right" Width="175" Margin="0, 5, 0, 5"/>
+                        <TextBox x:Name="size" TextChanged="size_TextChanged" PreviewTextInput="regex_number" VerticalAlignment="Center" HorizontalAlignment="Right" Width="150" Margin="0, 5, 0, 5"/>
+                    </DockPanel>
+
+                    <!-- Soul Capacity -->
+                    <DockPanel x:Name="soulCapacity_DockPanel" Visibility="Collapsed">
+                        <Label DockPanel.Dock="Left" Content="Soul Capacity: "/>
+                        <TextBox x:Name="soulCapacity" TextChanged="soulCapacity_TextChanged" PreviewTextInput="regex_number" VerticalAlignment="Center" HorizontalAlignment="Right" Width="150" Margin="0, 5, 0, 5"/>
+                    </DockPanel>
+
+                    <!-- Soul Rate -->
+                    <DockPanel x:Name="soulRate_DockPanel" Visibility="Collapsed">
+                        <Label DockPanel.Dock="Left" Content="Soul Rate: "/>
+                        <TextBox x:Name="soulRate" TextChanged="soulRate_TextChanged" PreviewTextInput="regex_number" VerticalAlignment="Center" HorizontalAlignment="Right" Width="150" Margin="0, 5, 0, 5"/>
+                    </DockPanel>
+
+                    <!-- Angels/Demons Capacity -->
+                    <DockPanel x:Name="ADCapacity_DockPanel" Visibility="Collapsed">
+                        <Label DockPanel.Dock="Left" Content="AD Capacity: "/>
+                        <TextBox x:Name="ADCapacity" TextChanged="ADCapacity_TextChanged" PreviewTextInput="regex_number" VerticalAlignment="Center" HorizontalAlignment="Right" Width="150" Margin="0, 5, 0, 5"/>
+                    </DockPanel>
+
+                    <!-- Conversion Rate -->
+                    <DockPanel x:Name="conversionRate_DockPanel" Visibility="Collapsed">
+                        <Label DockPanel.Dock="Left" Content="Conversion Rate: "/>
+                        <TextBox x:Name="conversionRate" TextChanged="conversionRate_TextChanged" PreviewTextInput="regex_number" VerticalAlignment="Center" HorizontalAlignment="Right" Width="150" Margin="0, 5, 0, 5"/>
                     </DockPanel>
                 </StackPanel>
             </Border>

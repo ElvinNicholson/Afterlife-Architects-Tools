@@ -19,6 +19,7 @@ using ImageMagick;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AfterlifeArchitectsTools
 {
@@ -49,10 +50,10 @@ namespace AfterlifeArchitectsTools
         /// </summary>
         /// <param name="text">The string component of the TextBox</param>
         /// <returns></returns>
-        private bool regexNumber(string text)
+        private void regex_number(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
-            return regex.IsMatch(text);
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         /// <summary>
@@ -101,6 +102,56 @@ namespace AfterlifeArchitectsTools
             textureHell = System.IO.Path.Combine(imagePath, textureHell_TextBlock.Text);
 
             loadImage(textureHeaven);
+
+            // Show/Hide panels
+            soulCapacity_DockPanel.Visibility = Visibility.Collapsed;
+            soulRate_DockPanel.Visibility = Visibility.Collapsed;
+            ADCapacity_DockPanel.Visibility = Visibility.Collapsed;
+            conversionRate_DockPanel.Visibility = Visibility.Collapsed;
+
+            switch (type)
+            {
+                case StructureType.Building_Green_T1:
+                case StructureType.Building_Green_T2:
+                case StructureType.Building_Yellow_T1:
+                case StructureType.Building_Yellow_T2:
+                case StructureType.Building_Orange_T1:
+                case StructureType.Building_Orange_T2:
+                case StructureType.Building_Brown_T1:
+                case StructureType.Building_Brown_T2:
+                case StructureType.Building_Purple_T1:
+                case StructureType.Building_Purple_T2:
+                case StructureType.Building_Red_T1:
+                case StructureType.Building_Red_T2:
+                case StructureType.Building_Blue_T1:
+                case StructureType.Building_Blue_T2:
+                    soulCapacity_DockPanel.Visibility = Visibility.Visible;
+                    soulCapacity.Text = (string)structureValue["structureValues"][(int)type]["soulCapacity"];
+                    break;
+
+                case StructureType.Gate_T1:
+                case StructureType.Gate_T2:
+                case StructureType.Gate_T3:
+                    soulRate_DockPanel.Visibility = Visibility.Visible;
+                    soulRate.Text = (string)structureValue["structureValues"][(int)type]["soulRate"];
+                    break;
+
+                case StructureType.Topia_T1:
+                case StructureType.Topia_T2:
+                    ADCapacity_DockPanel.Visibility = Visibility.Visible;
+                    ADCapacity.Text = (string)structureValue["structureValues"][(int)type]["ADCapacity"];
+                    break;
+
+                case StructureType.TrainingCenter_T1:
+                case StructureType.TrainingCenter_T2:
+                case StructureType.TrainingCenter_T3:
+                    conversionRate_DockPanel.Visibility = Visibility.Visible;
+                    conversionRate.Text = (string)structureValue["structureValues"][(int)type]["conversionRate"];
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         /// <summary>
@@ -154,16 +205,6 @@ namespace AfterlifeArchitectsTools
         }
 
         /// <summary>
-        /// Only allow numbers to be input to the cost field
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cost_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = regexNumber(e.Text);
-        }
-
-        /// <summary>
         /// Saves the changes to tile size to the JSON file
         /// </summary>
         /// <param name="sender"></param>
@@ -177,16 +218,6 @@ namespace AfterlifeArchitectsTools
             }
 
             structureValue["structureValues"][(int)selectedType]["tileSize"] = int.Parse(size.Text);
-        }
-
-        /// <summary>
-        /// Only allow numbers to be input to the tile size field
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void size_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = regexNumber(e.Text);
         }
 
         /// <summary>
@@ -303,6 +334,50 @@ namespace AfterlifeArchitectsTools
             }
 
             loadImage(textureHell);
+        }
+
+        private void soulCapacity_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(filename))
+            {
+                MessageBox.Show("There is no loaded StructureValues.json");
+                return;
+            }
+
+            structureValue["structureValues"][(int)selectedType]["soulCapacity"] = int.Parse(soulCapacity.Text);
+        }
+
+        private void soulRate_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(filename))
+            {
+                MessageBox.Show("There is no loaded StructureValues.json");
+                return;
+            }
+
+            structureValue["structureValues"][(int)selectedType]["soulRate"] = int.Parse(soulRate.Text);
+        }
+
+        private void ADCapacity_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(filename))
+            {
+                MessageBox.Show("There is no loaded StructureValues.json");
+                return;
+            }
+
+            structureValue["structureValues"][(int)selectedType]["ADCapacity"] = int.Parse(ADCapacity.Text);
+        }
+
+        private void conversionRate_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(filename))
+            {
+                MessageBox.Show("There is no loaded StructureValues.json");
+                return;
+            }
+
+            structureValue["structureValues"][(int)selectedType]["conversionRate"] = int.Parse(conversionRate.Text);
         }
     }
 }
