@@ -46,7 +46,7 @@
 					<!-- Dialogue Select Drop-down -->
 					<DockPanel>
 						<Label Content="Select Dialogue: "/>
-						<ComboBox x:Name="advisorDialogue_ComboBox" VerticalAlignment="Center" SelectionChanged="advisorDialogue_SelectionChanged" Width="160"/>
+                        <ComboBox x:Name="advisorDialogue_ComboBox" VerticalAlignment="Center" SelectionChanged="advisorDialogue_SelectionChanged" Width="160"/>
 					</DockPanel>
 
 					<!-- Remove or Add Dialogues -->
@@ -55,8 +55,13 @@
 							<Button Click="advisorAddDialogue_Click" VerticalAlignment="Top" Grid.Column="0" Margin="5, 5, 5, 5" Content="Create New Dialogue"/>
 							<Button Click="advisorRemoveDialogue_Click" VerticalAlignment="Top" Margin="5,30,5,5" Content="Remove Selected Dialogue"/>
 						</Grid>
-					</DockPanel>
-				</StackPanel>
+                    </DockPanel>
+                    <!-- Title -->
+                    <DockPanel>
+                        <Label DockPanel.Dock="Left" Content="Dialogue Name: "/>
+                        <TextBox x:Name="codename" TextChanged="codename_TextChanged" PreviewTextInput="codename_PreviewTextInput" VerticalAlignment="Center" HorizontalAlignment="Right" Width="165" Margin="0, 5, 5, 5"/>
+                    </DockPanel>
+                </StackPanel>
 			</Border>
 			<!-- Bottom Left Border -->
 			<Border Grid.Column="0" Grid.Row="2"  Margin="10" Background="GhostWhite" BorderBrush="Gainsboro" BorderThickness="1">
