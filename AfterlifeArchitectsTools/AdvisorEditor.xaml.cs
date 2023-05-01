@@ -105,6 +105,7 @@ namespace AfterlifeArchitectsTools
                 return;
             }
             selected_dialogue = advisorDialogue_ComboBox.SelectedIndex;
+            selected_textbox = 0;
 
             // Textboxes
             codename.Text = dialogues[selected_dialogue];
